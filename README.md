@@ -335,6 +335,7 @@ under the General tab in Cloudfront Distributions. Make sure you place the urls 
 
 
 <a name="cucumber"></a> 13. Local Cucumber Testing
+-------------
 
 1. Install Selenium IDE, install add-ons by opening with Firefox.  Follow instructions here:
 
@@ -350,6 +351,7 @@ under the General tab in Cloudfront Distributions. Make sure you place the urls 
 
 
 <a name="browsertack"></a> 14. Multiple Browser and Device Automated Testing using Browerstack
+-------------
 
 We are doing cross browser testing and device testing with Browserstack + Cucumber + Capybara + Selenium-Webdriver
 
@@ -374,6 +376,7 @@ You can also run tests from your console:
 
 
 **The MIT License (MIT)**
+-------------
 
 Copyright (c) <year> <copyright holders>
 
