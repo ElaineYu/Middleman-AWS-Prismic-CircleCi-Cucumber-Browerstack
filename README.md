@@ -2,7 +2,7 @@
 
 Rainfactory's Speedy and Traffic Resilient Static Site Setup
 =================
-### :heart: Middleman :heart: CircleCi :heart: AWS :heart: Prismic
+### :heart: Middleman :heart: CircleCi :heart: AWS :heart: Prismic :heart: Cucumber & Browserstack
 
 Welcome to our Middleman-AWS-Prismic-CircleCi open source project!
 We've used this setup to create high-traffic crowdfunding sites for [Rainfactory](http://www.rainfactory.com/) clients
@@ -12,7 +12,7 @@ We've used this setup to create high-traffic crowdfunding sites for [Rainfactory
 [Fove](http://www.getfove.com/)
 )
 at [Monsoon](http://www.monsoonco.com/).
-The following provides step-by-step instructions for generating a static site with Middleman, Amazon Web Services, CircleCI and Prismic.
+The following provides step-by-step instructions for generating a static site with Middleman, Amazon Web Services, CircleCI and Prismic.  This is a fork off of monsoonco/Middleman-AWS-Prismic-CircleCi to include an example setup to include [Cucumber](https://cucumber.io/) and [Browserstack](https://www.browserstack.com/) tests.
 
 ![Alt text](README_Images/system_overview.jpg)
 ## Ingredients
@@ -35,6 +35,10 @@ The following provides step-by-step instructions for generating a static site wi
 10. [Set Environmental Variables in CircleCi](#circleci_vars)
 11. [Prismic Content Management](#prismic)
 12. [Launch in AWS](#launch)
+13. [Local Cucumber Testing](#cucumber)
+14. [Multiple Browser and Device Automated Testing using Browerstack](#browerstack)
+
+
 
 <a name="web_server"></a> 1. Running the local web server
 -------------
@@ -330,6 +334,43 @@ under the General tab in Cloudfront Distributions. Make sure you place the urls 
   * [Using Alternate Domain Names (CNAMEs)](http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/CNAMEs.html)
 
 
+<a name="cucumber"></a> 13. Local Cucumber Testing
+
+1. Install Selenium IDE, install add-ons by opening with Firefox.  Follow instructions here:
+
+  * http://www.seleniumhq.org/docs/02_selenium_ide.jsp#installing-the-ide
+
+2. Enable access to http://0.0.0.0:4567
+
+   <code> bundle exec middleman </code>
+
+2. Run cucumber.  But you have to say "I say tomato, you say tomato" first.
+
+   <code> rake i_say tomato=tomahto </code>
+
+
+<a name="browsertack"></a> 14. Multiple Browser and Device Automated Testing using Browerstack
+
+We are doing cross browser testing and device testing with Browserstack + Cucumber + Capybara + Selenium-Webdriver
+
+The browsers and devices we are testing are listed in browser.json at the root of this application.
+Everytime CircleCi will run a build, the updated staging url will be tested.
+
+You can also run tests from your console:
+
+1. To test all browsers and devices at once listed in browsers.json, run the following rake task and Browserstack configuration variables from LastPass:
+
+   <code> rake cross_browser BS_USERNAME=XXXXX BS_AUTHKEY=XXXXXXXXX </code>
+
+2. To test only one browser or device one at a time, specify the main key name from browsers.json:
+
+   For a Google Chrome browser test:
+
+   <code> rake cross_browser:chrome BS_USERNAME=XXXXX BS_AUTHKEY=XXXXXXXXX </code>
+
+   For an iPhone 6 mobile Safari test:
+
+   <code> rake cross_browser:iphone_6 BS_USERNAME=XXXXX BS_AUTHKEY=XXXXXXXXX </code>
 
 
 **The MIT License (MIT)**
